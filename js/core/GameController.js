@@ -19,6 +19,9 @@ class GameController {
         this.selectedCardIndex = 0;
         this.keyboardNavEnabled = true;
         
+        // Touch support
+        this.touchStarted = false;
+        
         this.init();
     }
 
@@ -102,6 +105,39 @@ class GameController {
         // Card grid clicks
         const cardGrid = document.getElementById('card-grid');
         cardGrid.addEventListener('click', (e) => this.handleCardClick(e));
+        
+        // Touch support for mobile devices
+        cardGrid.addEventListener('touchend', (e) => this.handleCardTouch(e));
+        
+        // Prevent default touch behaviors that might interfere
+        cardGrid.addEventListener('touchstart', (e) => {
+            // Mark that a touch is starting
+            this.touchStarted = true;
+        }, { passive: true });
+    }
+
+    /**
+     * Handle card touch for mobile devices
+     * @param {TouchEvent} e - Touch event
+     */
+    handleCardTouch(e) {
+        // Only handle if touch was started on the grid
+        if (!this.touchStarted) return;
+        this.touchStarted = false;
+        
+        // Get the touched element from the last touch point
+        const touch = e.changedTouches[0];
+        const cardElement = document.elementFromPoint(touch.clientX, touch.clientY)?.closest('.card');
+        
+        if (!cardElement || this.gameState !== 'playing') return;
+        
+        // Prevent ghost click
+        e.preventDefault();
+        
+        const card = this.gameBoard.getCardByElement(cardElement);
+        if (card) {
+            this.handleCardSelection(card);
+        }
     }
 
     /**

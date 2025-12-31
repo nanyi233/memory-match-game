@@ -5,6 +5,14 @@
     perspective: 1000px;
     cursor: pointer;
     position: relative;
+    /* Touch optimization for mobile */
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: manipulation;
 }
 
 .card-inner {

@@ -409,6 +409,9 @@ body {
     background: rgba(255, 255, 255, 0.9);
     border-radius: var(--border-radius);
     box-shadow: 0 10px 40px var(--shadow-color);
+    /* Touch optimization for mobile */
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 /* Grid sizes for different difficulties */
