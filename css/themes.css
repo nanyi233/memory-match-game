@@ -1,0 +1,244 @@
+/* ===== Color Themes ===== */
+
+/* Ocean Theme */
+body.theme-ocean {
+    --background-start: #0ea5e9;
+    --background-end: #0284c7;
+    --primary-color: #0284c7;
+    --primary-dark: #0369a1;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}
+
+body.theme-ocean .card-back-pattern {
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+}
+
+/* Forest Theme */
+body.theme-forest {
+    --background-start: #22c55e;
+    --background-end: #16a34a;
+    --primary-color: #16a34a;
+    --primary-dark: #15803d;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}
+
+body.theme-forest .card-back-pattern {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+
+/* Sunset Theme */
+body.theme-sunset {
+    --background-start: #f97316;
+    --background-end: #ea580c;
+    --primary-color: #ea580c;
+    --primary-dark: #c2410c;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}
+
+body.theme-sunset .card-back-pattern {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+/* Lavender Theme */
+body.theme-lavender {
+    --background-start: #a855f7;
+    --background-end: #9333ea;
+    --primary-color: #9333ea;
+    --primary-dark: #7c3aed;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}
+
+body.theme-lavender .card-back-pattern {
+    background: linear-gradient(135deg, #a855f7, #9333ea);
+}
+
+/* Dark Theme */
+body.theme-dark {
+    --background-start: #374151;
+    --background-end: #1f2937;
+    --primary-color: #6b7280;
+    --primary-dark: #4b5563;
+    --text-color: #f3f4f6;
+    --text-light: #9ca3af;
+    --card-bg: #374151;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}
+
+body.theme-dark .menu-container,
+body.theme-dark .screen-container,
+body.theme-dark .game-header,
+body.theme-dark .multiplayer-bar,
+body.theme-dark .card-grid,
+body.theme-dark .modal-content {
+    background: rgba(55, 65, 81, 0.95);
+    color: var(--text-color);
+}
+
+body.theme-dark .menu-btn {
+    background: #4b5563;
+    color: #f3f4f6;
+}
+
+body.theme-dark .menu-btn:hover {
+    background: #6b7280;
+}
+
+body.theme-dark .menu-btn.primary {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+body.theme-dark .difficulty-btn,
+body.theme-dark .theme-btn,
+body.theme-dark .tab-btn,
+body.theme-dark .result-item,
+body.theme-dark .player-card,
+body.theme-dark .tips,
+body.theme-dark .keyboard-shortcuts {
+    background: #4b5563;
+    color: #f3f4f6;
+}
+
+body.theme-dark .leaderboard-table th {
+    background: #4b5563;
+    color: #9ca3af;
+}
+
+body.theme-dark .setting-row {
+    border-bottom-color: #4b5563;
+}
+
+body.theme-dark input,
+body.theme-dark select {
+    background: #4b5563;
+    color: #f3f4f6;
+    border-color: #6b7280;
+}
+
+body.theme-dark .card {
+    background: #4b5563;
+}
+
+body.theme-dark .card-back-pattern {
+    background: linear-gradient(135deg, #4b5563, #374151);
+}
+
+/* ===== High Contrast Mode ===== */
+body.high-contrast {
+    --primary-color: #0000ff;
+    --secondary-color: #008000;
+    --danger-color: #ff0000;
+    --text-color: #000000;
+    --card-bg: #ffffff;
+}
+
+body.high-contrast .card {
+    border: 3px solid #000000;
+}
+
+body.high-contrast .card.flipped .card-front {
+    border: 3px solid #0000ff;
+}
+
+body.high-contrast .card.matched .card-front {
+    border: 3px solid #008000;
+}
+
+body.high-contrast .menu-btn {
+    border: 2px solid #000000;
+}
+
+body.high-contrast .menu-btn:focus,
+body.high-contrast .difficulty-btn:focus,
+body.high-contrast .card:focus {
+    outline: 4px solid #0000ff;
+    outline-offset: 2px;
+}
+
+body.high-contrast .game-title {
+    background: none;
+    -webkit-text-fill-color: #000000;
+    color: #000000;
+}
+
+/* ===== Reduced Motion ===== */
+body.reduced-motion *,
+body.reduced-motion *::before,
+body.reduced-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+body.reduced-motion .card {
+    transition: none !important;
+}
+
+body.reduced-motion .card-inner {
+    transition: none !important;
+}
+
+body.reduced-motion .card.flipped .card-inner,
+body.reduced-motion .card.matched .card-inner {
+    transform: rotateY(180deg);
+}
+
+/* ===== Card Themes Styling ===== */
+.card-theme-emoji .card-front {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.card-theme-animals .card-front {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.card-theme-food .card-front {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.card-theme-space .card-front {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.card-theme-sports .card-front {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+.card-theme-nature .card-front {
+    font-size: clamp(1.5rem, 4vw, 3rem);
+}
+
+/* ===== Seasonal Themes ===== */
+
+/* Christmas Theme */
+body.theme-christmas {
+    --background-start: #c41e3a;
+    --background-end: #228b22;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}
+
+body.theme-christmas::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='2' fill='white' opacity='0.3'/%3E%3C/svg%3E");
+    background-size: 50px 50px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* Halloween Theme */
+body.theme-halloween {
+    --background-start: #ff6b00;
+    --background-end: #1a1a2e;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}
+
+/* Valentine Theme */
+body.theme-valentine {
+    --background-start: #ff6b8a;
+    --background-end: #c70039;
+    background: linear-gradient(135deg, var(--background-start), var(--background-end));
+}

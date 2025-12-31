@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="记忆配对卡牌游戏 - 测试你的记忆力！">
+    <title>记忆配对卡牌游戏</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/themes.css">
+    <link rel="stylesheet" href="css/animations.css">
+</head>
+<body>
+    <!-- Main Menu Screen -->
+    <div id="main-menu" class="screen active">
+        <div class="menu-container">
+            <h1 class="game-title">🃏 记忆配对</h1>
+            <p class="subtitle">测试你的记忆力！</p>
+            
+            <div class="menu-buttons">
+                <button id="single-player-btn" class="menu-btn primary" aria-label="单人游戏">
+                    <span class="btn-icon">👤</span>
+                    <span class="btn-text">单人游戏</span>
+                </button>
+                <button id="multi-player-btn" class="menu-btn secondary" aria-label="多人游戏">
+                    <span class="btn-icon">👥</span>
+                    <span class="btn-text">多人游戏</span>
+                </button>
+                <button id="leaderboard-btn" class="menu-btn" aria-label="排行榜">
+                    <span class="btn-icon">🏆</span>
+                    <span class="btn-text">排行榜</span>
+                </button>
+                <button id="settings-btn" class="menu-btn" aria-label="设置">
+                    <span class="btn-icon">⚙️</span>
+                    <span class="btn-text">设置</span>
+                </button>
+                <button id="how-to-play-btn" class="menu-btn" aria-label="游戏说明">
+                    <span class="btn-icon">❓</span>
+                    <span class="btn-text">游戏说明</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Difficulty Selection Screen -->
+    <div id="difficulty-screen" class="screen">
+        <div class="screen-container">
+            <button class="back-btn" aria-label="返回">← 返回</button>
+            <h2>选择难度</h2>
+            
+            <div class="difficulty-options">
+                <button class="difficulty-btn" data-difficulty="easy" aria-label="简单模式">
+                    <span class="diff-icon">😊</span>
+                    <span class="diff-name">简单</span>
+                    <span class="diff-desc">4x3 网格 (6对)</span>
+                </button>
+                <button class="difficulty-btn" data-difficulty="medium" aria-label="中等模式">
+                    <span class="diff-icon">😐</span>
+                    <span class="diff-name">中等</span>
+                    <span class="diff-desc">4x4 网格 (8对)</span>
+                </button>
+                <button class="difficulty-btn" data-difficulty="hard" aria-label="困难模式">
+                    <span class="diff-icon">😰</span>
+                    <span class="diff-name">困难</span>
+                    <span class="diff-desc">6x4 网格 (12对)</span>
+                </button>
+                <button class="difficulty-btn" data-difficulty="expert" aria-label="专家模式">
+                    <span class="diff-icon">🤯</span>
+                    <span class="diff-name">专家</span>
+                    <span class="diff-desc">6x6 网格 (18对)</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multiplayer Setup Screen -->
+    <div id="multiplayer-screen" class="screen">
+        <div class="screen-container">
+            <button class="back-btn" aria-label="返回">← 返回</button>
+            <h2>多人游戏设置</h2>
+            
+            <div class="player-setup">
+                <div class="player-count">
+                    <label for="player-count">玩家数量：</label>
+                    <select id="player-count">
+                        <option value="2">2 玩家</option>
+                        <option value="3">3 玩家</option>
+                        <option value="4">4 玩家</option>
+                    </select>
+                </div>
+                
+                <div id="player-names" class="player-names">
+                    <div class="player-input">
+                        <label for="player1-name">玩家 1：</label>
+                        <input type="text" id="player1-name" placeholder="输入名字" maxlength="10">
+                    </div>
+                    <div class="player-input">
+                        <label for="player2-name">玩家 2：</label>
+                        <input type="text" id="player2-name" placeholder="输入名字" maxlength="10">
+                    </div>
+                </div>
+                
+                <div class="difficulty-select">
+                    <label for="mp-difficulty">难度：</label>
+                    <select id="mp-difficulty">
+                        <option value="easy">简单 (4x3)</option>
+                        <option value="medium" selected>中等 (4x4)</option>
+                        <option value="hard">困难 (6x4)</option>
+                        <option value="expert">专家 (6x6)</option>
+                    </select>
+                </div>
+                
+                <button id="start-multiplayer" class="menu-btn primary">开始游戏</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="screen">
+        <header class="game-header">
+            <button id="pause-btn" class="icon-btn" aria-label="暂停">⏸️</button>
+            
+            <div class="game-stats">
+                <div class="stat-item">
+                    <span class="stat-label">时间</span>
+                    <span id="timer" class="stat-value">00:00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">步数</span>
+                    <span id="moves" class="stat-value">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">配对</span>
+                    <span id="matches" class="stat-value">0/0</span>
+                </div>
+            </div>
+            
+            <button id="sound-toggle" class="icon-btn" aria-label="音效开关">🔊</button>
+        </header>
+
+        <!-- Multiplayer Info Bar -->
+        <div id="multiplayer-bar" class="multiplayer-bar hidden">
+            <div id="players-info" class="players-info"></div>
+        </div>
+
+        <main class="game-area">
+            <div id="card-grid" class="card-grid" role="grid" aria-label="卡片网格"></div>
+        </main>
+
+        <!-- Combo Display -->
+        <div id="combo-display" class="combo-display hidden">
+            <span class="combo-text">连击!</span>
+            <span id="combo-count" class="combo-count">x2</span>
+        </div>
+    </div>
+
+    <!-- Pause Menu -->
+    <div id="pause-menu" class="modal hidden">
+        <div class="modal-content">
+            <h2>游戏暂停</h2>
+            <div class="modal-buttons">
+                <button id="resume-btn" class="menu-btn primary">继续游戏</button>
+                <button id="restart-btn" class="menu-btn">重新开始</button>
+                <button id="quit-btn" class="menu-btn danger">退出游戏</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Screen -->
+    <div id="game-over" class="modal hidden">
+        <div class="modal-content game-over-content">
+            <h2 id="game-over-title">🎉 恭喜通关！</h2>
+            
+            <div class="game-results">
+                <div class="result-item">
+                    <span class="result-icon">⏱️</span>
+                    <span class="result-label">用时</span>
+                    <span id="final-time" class="result-value">00:00</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">👆</span>
+                    <span class="result-label">步数</span>
+                    <span id="final-moves" class="result-value">0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-icon">⭐</span>
+                    <span class="result-label">得分</span>
+                    <span id="final-score" class="result-value">0</span>
+                </div>
+                <div class="result-item stars">
+                    <span id="star-rating" class="star-rating">⭐⭐⭐</span>
+                </div>
+            </div>
+
+            <!-- Multiplayer Results -->
+            <div id="mp-results" class="mp-results hidden">
+                <h3>最终排名</h3>
+                <div id="mp-ranking" class="mp-ranking"></div>
+            </div>
+
+            <div class="name-input-section" id="name-input-section">
+                <label for="player-name-input">输入你的名字：</label>
+                <input type="text" id="player-name-input" placeholder="你的名字" maxlength="15">
+            </div>
+
+            <div class="modal-buttons">
+                <button id="save-score-btn" class="menu-btn primary">保存分数</button>
+                <button id="play-again-btn" class="menu-btn">再玩一次</button>
+                <button id="back-to-menu-btn" class="menu-btn">返回菜单</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaderboard Screen -->
+    <div id="leaderboard-screen" class="screen">
+        <div class="screen-container">
+            <button class="back-btn" aria-label="返回">← 返回</button>
+            <h2>🏆 排行榜</h2>
+            
+            <div class="leaderboard-tabs">
+                <button class="tab-btn active" data-tab="easy">简单</button>
+                <button class="tab-btn" data-tab="medium">中等</button>
+                <button class="tab-btn" data-tab="hard">困难</button>
+                <button class="tab-btn" data-tab="expert">专家</button>
+            </div>
+            
+            <div id="leaderboard-content" class="leaderboard-content">
+                <table class="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th>排名</th>
+                            <th>玩家</th>
+                            <th>分数</th>
+                            <th>时间</th>
+                            <th>步数</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body"></tbody>
+                </table>
+                <p id="no-scores" class="no-scores hidden">暂无记录</p>
+            </div>
+            
+            <button id="clear-scores-btn" class="menu-btn danger small">清除记录</button>
+        </div>
+    </div>
+
+    <!-- Settings Screen -->
+    <div id="settings-screen" class="screen">
+        <div class="screen-container">
+            <button class="back-btn" aria-label="返回">← 返回</button>
+            <h2>⚙️ 设置</h2>
+            
+            <div class="settings-section">
+                <h3>主题</h3>
+                <div class="theme-options">
+                    <button class="theme-btn active" data-theme="emoji" aria-label="表情主题">
+                        <span class="theme-preview">😀🎮🌟</span>
+                        <span>表情</span>
+                    </button>
+                    <button class="theme-btn" data-theme="animals" aria-label="动物主题">
+                        <span class="theme-preview">🐱🐶🐰</span>
+                        <span>动物</span>
+                    </button>
+                    <button class="theme-btn" data-theme="food" aria-label="食物主题">
+                        <span class="theme-preview">🍕🍔🍦</span>
+                        <span>食物</span>
+                    </button>
+                    <button class="theme-btn" data-theme="space" aria-label="太空主题">
+                        <span class="theme-preview">🚀🌙⭐</span>
+                        <span>太空</span>
+                    </button>
+                    <button class="theme-btn" data-theme="sports" aria-label="运动主题">
+                        <span class="theme-preview">⚽🏀🎾</span>
+                        <span>运动</span>
+                    </button>
+                    <button class="theme-btn" data-theme="nature" aria-label="自然主题">
+                        <span class="theme-preview">🌸🌴🌈</span>
+                        <span>自然</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>背景颜色</h3>
+                <div class="color-options">
+                    <button class="color-btn active" data-color="default" aria-label="默认颜色"></button>
+                    <button class="color-btn" data-color="ocean" aria-label="海洋蓝"></button>
+                    <button class="color-btn" data-color="forest" aria-label="森林绿"></button>
+                    <button class="color-btn" data-color="sunset" aria-label="日落橙"></button>
+                    <button class="color-btn" data-color="lavender" aria-label="薰衣草紫"></button>
+                    <button class="color-btn" data-color="dark" aria-label="暗黑模式"></button>
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>音效</h3>
+                <div class="setting-row">
+                    <label for="sound-enabled">启用音效</label>
+                    <input type="checkbox" id="sound-enabled" checked>
+                </div>
+                <div class="setting-row">
+                    <label for="volume-slider">音量</label>
+                    <input type="range" id="volume-slider" min="0" max="100" value="70">
+                </div>
+            </div>
+            
+            <div class="settings-section">
+                <h3>无障碍</h3>
+                <div class="setting-row">
+                    <label for="keyboard-nav">键盘导航</label>
+                    <input type="checkbox" id="keyboard-nav" checked>
+                </div>
+                <div class="setting-row">
+                    <label for="high-contrast">高对比度模式</label>
+                    <input type="checkbox" id="high-contrast">
+                </div>
+                <div class="setting-row">
+                    <label for="reduced-motion">减少动画</label>
+                    <input type="checkbox" id="reduced-motion">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- How to Play Screen -->
+    <div id="how-to-play-screen" class="screen">
+        <div class="screen-container">
+            <button class="back-btn" aria-label="返回">← 返回</button>
+            <h2>❓ 游戏说明</h2>
+            
+            <div class="instructions">
+                <div class="instruction-item">
+                    <span class="instruction-number">1</span>
+                    <p>点击卡片将其翻开，记住卡片上的图案</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-number">2</span>
+                    <p>连续翻开两张卡片，如果图案相同则配对成功</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-number">3</span>
+                    <p>配对成功的卡片会保持翻开状态</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-number">4</span>
+                    <p>找出所有配对即可通关</p>
+                </div>
+                <div class="instruction-item">
+                    <span class="instruction-number">5</span>
+                    <p>用最少的步数和最短的时间获得更高分数</p>
+                </div>
+            </div>
+            
+            <div class="tips">
+                <h3>💡 小技巧</h3>
+                <ul>
+                    <li>连续配对成功可以获得连击奖励</li>
+                    <li>键盘导航：使用方向键移动，空格键翻牌</li>
+                    <li>多人模式中，配对成功可以继续翻牌</li>
+                </ul>
+            </div>
+            
+            <div class="keyboard-shortcuts">
+                <h3>⌨️ 快捷键</h3>
+                <div class="shortcut-list">
+                    <div class="shortcut"><kbd>↑↓←→</kbd> 移动选择</div>
+                    <div class="shortcut"><kbd>Space</kbd> / <kbd>Enter</kbd> 翻牌</div>
+                    <div class="shortcut"><kbd>Esc</kbd> 暂停游戏</div>
+                    <div class="shortcut"><kbd>M</kbd> 静音切换</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="loading-screen hidden">
+        <div class="loader"></div>
+        <p>加载中...</p>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast hidden" role="alert" aria-live="polite"></div>
+
+    <!-- Scripts -->
+    <script src="js/utils/AudioManager.js"></script>
+    <script src="js/utils/StorageManager.js"></script>
+    <script src="js/core/CardThemes.js"></script>
+    <script src="js/core/Card.js"></script>
+    <script src="js/core/GameBoard.js"></script>
+    <script src="js/core/ScoreSystem.js"></script>
+    <script src="js/core/GameController.js"></script>
+    <script src="js/ui/UIManager.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
